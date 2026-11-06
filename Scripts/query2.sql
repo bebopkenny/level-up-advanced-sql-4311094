@@ -1,12 +1,14 @@
-
-SELECT 
+SELECT
   e.firstName,
-  e.lastName
-FROM employee AS e
+  e.lastName,
+  COUNT(s.salesId) AS carsSold
+FROM 
+  employee as e
 LEFT JOIN
-sales AS s
+  sales AS s
 ON
-e.employeeId = s.employeeId
+  e.employeeId = s.employeeId  
 WHERE
-e.employeeId NOT IN (SELECT s.employeeId FROM sales AS s)
-
+  e.title = 'Sales Person'
+GROUP BY 
+  e.firstName, e.lastName

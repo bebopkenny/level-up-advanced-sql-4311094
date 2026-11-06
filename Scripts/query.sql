@@ -1,9 +1,27 @@
-
-SELECT
-  e.firstName ||' '||e.lastName AS [First Name and Last Name],
-  m.firstName ||' '||m.lastName AS [Manager First Name and Last Name]
-FROM employee AS e
-INNER JOIN
-  employee AS m
+SELECT 
+  e.firstName ||' '|| e.lastName AS [Sales Person's Name],
+  c.firstName ||' '|| c.lastName AS [Customer's Name],
+  m.model AS [Car Model],
+  s.salesAmount AS [Sales Amount]
+FROM 
+  sales AS s
+INNER JOIN 
+  employee AS e 
 ON
-  e.employeeId = m.managerId
+  s.employeeId = e.employeeId
+INNER JOIN
+  customer as c
+ON
+  s.customerId = c.customerId
+INNER JOIN
+  inventory AS i
+ON
+  s.inventoryId = i.inventoryId
+INNER JOIN 
+  model as m
+ON
+  i.modelId = m.modelId
+LIMIT
+  10
+
+

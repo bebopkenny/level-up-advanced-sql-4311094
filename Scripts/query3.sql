@@ -1,14 +1,7 @@
-
--- CREATE VIEW V_report AS
-
-SELECT
-  e.firstName ||' '|| e.lastName AS EmployeeName,
-  SUM(s.inventoryId)
+SELECT e.firstName, e.lastName, COUNT(s.salesId) AS carsSold
 FROM employee AS e
-JOIN
-sales AS s
-ON
-e.employeeId = s.employeeId AND e.title = 'Sales Person'
-GROUP BY 
-  EmployeeName
-
+INNER JOIN sales AS s
+ON e.employeeId = s.employeeId
+WHERE e.title = 'Sales Person'
+GROUP BY e.employeeId, e.firstName, e.lastName
+HAVING carsSold > 5
